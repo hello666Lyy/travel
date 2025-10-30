@@ -15,7 +15,7 @@ public class PageController {
     //访问前台页面
     @RequestMapping("/frontdesk/{page}")
     public String showPageFrontdesk(@PathVariable String page) {
-        return "/backstage/" + page;
+        return "/frontdesk/" + page;
     }
 
     // 忽略访问项目logo

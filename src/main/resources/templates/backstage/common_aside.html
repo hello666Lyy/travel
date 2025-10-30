@@ -80,4 +80,22 @@
         </ul>
     </section>
     <!-- /.sidebar -->
+    <script>
+        $(function () {
+            // 点击外层菜单时记录他的id
+            $(".treeview").click(function () {
+                sessionStorage.menu = $(this).attr("id");
+            })
+            // 点击内层菜单时记录他的id
+            $(".treeview-menu li").click(function () {
+                sessionStorage.menu2 = $(this).attr("id");
+            })
+
+            // 对已点击的外层菜单添加class属性为active
+            $("#"+sessionStorage.menu).addClass("active");
+            // 对已点击的内层菜单添加颜色样式
+            $("#"+sessionStorage.menu2+" a").css("color","white");
+        })
+    </script>
 </aside>
+</html>

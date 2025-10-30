@@ -68,7 +68,7 @@
                                     <a th:href="@{/backstage/role/desc(rid=${role.rid})}" class="btn bg-green btn-xs">详情</a>
                                     <a th:href="@{/backstage/role/edit(rid=${role.rid})}" class="btn bg-olive btn-xs">修改</a>
                                     <a th:href="@{/backstage/role/findRole(rid=${role.rid})}" class="btn bg-blue btn-xs">分配权限</a>
-                                    <a th:href="@{/backstage/role/delete(rid=${role.rid})}" class="btn bg-gray btn-xs">删除角色</a>
+                                    <a th:onclick="|javascript:del(${role.rid})|" class="btn bg-gray btn-xs">删除</a>
                                 </td>
                             </tr>
                             </tbody>
@@ -100,7 +100,14 @@
 
 <!-- 在js中获取Model的值 -->
 <script th:inline="javascript">
-        var currentPage = [[${rolePage.current}]]; // 当前页
+    function del(rid) {
+        if (confirm("确定要删除吗?")) {
+            location.href = "/backstage/role/delete?rid=" + rid;
+        }
+    }
+
+
+    var currentPage = [[${rolePage.current}]]; // 当前页
         var pages = [[${rolePage.pages}]]; // 总页数
 
 

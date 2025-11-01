@@ -38,4 +38,18 @@
                           on role_permission.pid = permission.pid
         where admin.aid = #{aid}
     </select>
+    <select id="findAllPermission" parameterType="string" resultType="com.itbaizhan.pojo.Permission">
+        select distinct permission.* FROM
+            admin
+                left join admin_role
+                          on admin.aid = admin_role.aid
+                left join role
+                          on admin_role.rid = role.rid
+                left join role_permission
+                          on role.rid = role_permission.rid
+                left join permission
+                          on role_permission.pid = permission.pid
+        where admin.username = #{username}
+          AND permission.pid is not null
+    </select>
 </mapper>

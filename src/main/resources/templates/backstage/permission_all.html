@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
     <title>权限管理</title>
     <th:block th:replace="/backstage/common_resources::common_css"/>
@@ -41,7 +42,7 @@
                             <div class="form-group form-inline">
                                 <div class="btn-group">
                                     <a th:href="@{/backstage/permission_add}">
-                                        <button type="button" class="btn btn-default" title="新建">
+                                        <button type="button" class="btn btn-default" title="新建" sec:authorize="hasAnyAuthority('/permission/add')">>
                                             <i class="fa fa-file-o"></i> 新建
                                         </button>
                                     </a>
@@ -66,7 +67,7 @@
                                 <td th:text="${permission.permissionDesc }"></td>
                                 <td class="text-center">
                                     <a th:href="@{/backstage/permission/edit(pid=${permission.pid})}" class="btn bg-olive btn-xs">修改</a>
-                                    <a th:href="@{/backstage/permission/delete(pid=${permission.pid})}" class="btn bg-gray btn-xs">删除</a>
+                                    <a th:onclick="|javascript:del(${permission.pid})|" class="btn bg-gray btn-xs">删除</a>
                                 </td>
                             </tr>
                             </tbody>
@@ -98,6 +99,12 @@
 
 <!-- 在js中获取Model的值 -->
 <script th:inline="javascript">
+    function del(pid) {
+        if (confirm("确定要删除吗?")) {
+            location.href = "/backstage/permission/delete?pid=" + pid;
+        }
+    }
+
         var currentPage = [[${permissionPage.current}]]; // 当前页
         var pages = [[${permissionPage.pages}]]; // 总页数
 

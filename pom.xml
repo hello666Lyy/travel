@@ -50,6 +50,18 @@
             <artifactId>mybatis-plus-boot-starter</artifactId>
             <version>3.5.4</version>
         </dependency>
+        <!-- spring-security -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <!-- thymeleaf整合spring-security -->
+        <dependency>
+            <groupId>org.thymeleaf.extras</groupId>
+            <artifactId>thymeleaf-extras-springsecurity6</artifactId>
+<!--            <version>3.0.4.RELEASE</version>-->
+        </dependency>
+
     </dependencies>
 
     <build>

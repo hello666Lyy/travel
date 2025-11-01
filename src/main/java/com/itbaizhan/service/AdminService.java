@@ -1,10 +1,12 @@
 package com.itbaizhan.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.itbaizhan.bean.RoleWithStatus;
 import com.itbaizhan.mapper.AdminMapper;
 import com.itbaizhan.mapper.RoleMapper;
 import com.itbaizhan.pojo.Admin;
+import com.itbaizhan.pojo.Permission;
 import com.itbaizhan.pojo.Role;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,5 +76,17 @@ public class AdminService {
         Admin admin = adminMapper.selectById(aid);
         admin.setStatus(!admin.isStatus());
         adminMapper.updateById(admin);
+    }
+
+    // 根据名字查询管理员
+    public Admin findByAdminName(String username) {
+        QueryWrapper<Admin> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("username", username);
+        return adminMapper.selectOne(queryWrapper);
+    }
+
+    // 根据管理员名字查询权限
+    public List<Permission> findAllPermission(String username) {
+        return adminMapper.findAllPermission(username);
     }
 }

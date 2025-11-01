@@ -5,6 +5,7 @@ import com.itbaizhan.bean.RoleWithStatus;
 import com.itbaizhan.pojo.Admin;
 import com.itbaizhan.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,6 +20,7 @@ public class AdminController {
     private AdminService adminService;
 
     @RequestMapping("/all")
+    @PreAuthorize("hasAnyAuthority('/admin/all')")
     public ModelAndView all(@RequestParam(defaultValue = "1") int page,
                             @RequestParam(defaultValue = "10") int size) {
         Page<Admin> adminPage = adminService.findPage(page, size);

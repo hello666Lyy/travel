@@ -10,6 +10,7 @@ import com.itbaizhan.pojo.Permission;
 import com.itbaizhan.pojo.Role;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -21,6 +22,8 @@ public class AdminService {
     private AdminMapper adminMapper;
     @Autowired
     private RoleMapper roleMapper;
+    @Autowired
+    private BCryptPasswordEncoder encoder;
 
     // 分页查询管理员
     public Page<Admin> findPage(int page, int size) {
@@ -30,6 +33,7 @@ public class AdminService {
 
     //新增管理员
     public void add(Admin admin) {
+        admin.setPassword(encoder.encode(admin.getPassword()));
         adminMapper.insert(admin);
     }
 
@@ -40,6 +44,13 @@ public class AdminService {
 
     //修改管理员
     public void update(Admin admin) {
+        String oldPassword = adminMapper.selectById(admin.getAid()).getPassword();
+        String newPassword = admin.getPassword();
+
+        if(!oldPassword.equals(newPassword)){
+            admin.setPassword(encoder.encode(newPassword));
+        }
+
         adminMapper.updateById(admin);
     }
 

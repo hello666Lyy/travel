@@ -27,5 +27,11 @@ public class ProductService {
     public void update(Product product) {
         productMapper.updateById(product);
     }
+    // 修改产品状态
+    public void updateStatus(Integer pid) {
+        Product product = productMapper.selectById(pid);
+        product.setStatus(!product.getStatus());
+        productMapper.updateById(product);
+    }
 
 }

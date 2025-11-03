@@ -9,6 +9,10 @@ spring:
     password: hello666
   main:
     allow-circular-references: true # 允许循环依赖，临时解决启动问题
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
 
 mybatis-plus:
   global-config:

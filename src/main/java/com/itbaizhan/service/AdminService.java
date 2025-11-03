@@ -27,8 +27,7 @@ public class AdminService {
 
     // 分页查询管理员
     public Page<Admin> findPage(int page, int size) {
-        Page selectPage = adminMapper.selectPage(new Page<Admin>(page, size), null);
-        return selectPage;
+        return adminMapper.selectPage(new Page<Admin>(page, size), null);
     }
 
     //新增管理员

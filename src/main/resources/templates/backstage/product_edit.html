@@ -36,7 +36,7 @@
                         <div class="col-md-2 title" style="height: 110px">产品图片</div>
                         <div class="col-md-8 data" style="height: 110px">
                             <form id="uploadPImage" enctype="multipart/form-data">
-                                <input type="file"  name="file" id="pImageFile">
+                                <input type="file"  name="file"  id="pImageFile">
                             </form>
                         </div>
 
@@ -61,10 +61,10 @@
                         <div class="col-md-2 data" style="height: 110px">
                             <img height="100" th:src="${product.pImage}" id="pImage">
                         </div>
-                    
+
                     <form th:action="@{/backstage/product/update}" method="post">
 
-                        <input type="hidden" name="pImage" id="hiddenPImage">
+                        <input type="hidden" th:value="${product.pImage}" name="pImage" id="hiddenPImage">
                         <input type="hidden" name="pid" th:value="${product.pid}">
 
                         <div class="col-md-2 title">产品名称</div>

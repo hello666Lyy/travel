@@ -6,8 +6,10 @@ import com.itbaizhan.mapper.RoleMapper;
 import com.itbaizhan.pojo.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 public class RoleService {
 
     @Autowired
@@ -34,6 +36,7 @@ public class RoleService {
     // 修改角色权限
     public void updatePermission(Integer rid, Integer[] ids) {
         roleMapper.deleteRoleAllPermission(rid);
+
         for(Integer pid : ids){
             roleMapper.addRolePermission(rid,pid);
         }

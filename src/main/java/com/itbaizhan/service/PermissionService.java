@@ -7,12 +7,14 @@ import com.itbaizhan.pojo.Permission;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Transactional
 public class PermissionService {
 
     @Autowired

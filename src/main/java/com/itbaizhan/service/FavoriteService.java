@@ -1,6 +1,8 @@
 package com.itbaizhan.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.itbaizhan.mapper.ProductMapper;
+import com.itbaizhan.pojo.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,4 +21,8 @@ public class FavoriteService {
         productMapper.delFavorite(pid, mid);
     }
 
+    // 我的收藏
+    public Page<Product> findMemberFavorite(int page, int size, Integer mid) {
+        return productMapper.findMemberFavorite(new Page(page,size), mid);
+    }
 }

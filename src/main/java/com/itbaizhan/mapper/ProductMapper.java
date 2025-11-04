@@ -15,4 +15,6 @@ public interface ProductMapper extends BaseMapper<Product> {
     void addFavorite(@Param("pid") Integer pid, @Param("mid") Integer mid);
 
     void delFavorite(@Param("pid") Integer pid, @Param("mid") Integer mid);
+
+    Page<Product> findMemberFavorite(Page<Product> page, Integer mid);
 }

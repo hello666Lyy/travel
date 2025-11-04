@@ -47,4 +47,10 @@
         where pid = #{pid}
         and mid = #{mid}
     </select>
+    <select id="findMemberFavorite" parameterType="int" resultType="com.itbaizhan.pojo.Product">
+        select product.* from product
+        left join favorite
+        on product.pid = favorite.pid
+        where favorite.mid = #{mid}
+    </select>
 </mapper>

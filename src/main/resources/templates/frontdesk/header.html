@@ -210,7 +210,7 @@
     <div class="header_wrap">
         <div class="topbar">
             <div class="logo">
-                <img src="http://forntdesk/images/logo.png" alt="">
+                <img src="http://localhost/frontdesk/images/logo.png" alt="">
 
 
                 <div>
@@ -227,8 +227,10 @@
                 </div>
             </div>
             <div class="search">
-                <input name="" type="text" placeholder="" class="search_input" autocomplete="off">
-                <a href="javascript:;" class="search-button">搜索</a>
+                <form action="/frontdesk/product/routeList">
+                    <input name="" type="text" placeholder="" class="search_input" autocomplete="off">
+                    <button type="submit" class="serch-button">搜索</button>
+                </form>
             </div>
             <div class="hottel">
                 <div class="hot_pic">

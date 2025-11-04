@@ -27,4 +27,13 @@ public class FrontDeskProductController {
         modelAndView.setViewName("frontdesk/route_list");
         return modelAndView;
     }
+
+    @RequestMapping("/routeDetail")
+    public ModelAndView findOne(Integer pid) {
+        ModelAndView modelAndView = new ModelAndView();
+        Product product = productService.findOne(pid);
+        modelAndView.addObject("product", product);
+        modelAndView.setViewName("frontdesk/route_detail");
+        return modelAndView;
+    }
 }

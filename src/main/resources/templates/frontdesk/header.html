@@ -228,7 +228,7 @@
             </div>
             <div class="search">
                 <form action="/frontdesk/product/routeList">
-                    <input name="" type="text" placeholder="" class="search_input" autocomplete="off">
+                    <input name="productName" th:value="${productName}" type="text" placeholder="" class="search_input" autocomplete="off">
                     <button type="submit" class="search-button">搜索</button>
                 </form>
             </div>
@@ -253,7 +253,7 @@
         $(function(){
             $.get("/frontdesk/category/all", function(categories) {
                 // console.log(categories);
-                var str = "<li class=\"nav-active\"><a href=\"index.html\">首页</a></li>";
+                var str = "<li class=\"nav-active\"><a href=\"/frontdesk/index\">首页</a></li>";
                 for(var i = 0; i < categories.length; i++) {
                     str += "<li><a href=\"/frontdesk/product/routeList?cid="+categories[i].cid+"\">"+categories[i].cname+"</a></li>"
                 }

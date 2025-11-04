@@ -81,5 +81,38 @@ public class MemberService {
         }
     }
 
+    public Result login(String name, String password) {
+        Member member = null;
 
+        if(member == null) {
+            QueryWrapper<Member> queryWrapper = new QueryWrapper<>();
+            queryWrapper.eq("username", name);
+            member = memberMapper.selectOne(queryWrapper);
+        }
+        if(member==null) {
+            QueryWrapper<Member> queryWrapper = new QueryWrapper<>();
+            queryWrapper.eq("phoneNum", name);
+            member = memberMapper.selectOne(queryWrapper);
+        }
+        if(member==null) {
+            QueryWrapper<Member> queryWrapper = new QueryWrapper<>();
+            queryWrapper.eq("email", name);
+            member = memberMapper.selectOne(queryWrapper);
+        }
+
+        if(member==null) {
+            return new Result(false,"用户名或密码错误");
+        }
+
+        boolean flag = encoder.matches(password, member.getPassword());
+        if(!flag) {
+            return new Result(false,"用户名或密码错误");
+        }
+
+        if(!member.isActive()) {
+            return new Result(false,"用户未激活,请登录邮箱激活用户");
+        }
+
+        return new Result(true, "登录成功",member);
+    }
 }

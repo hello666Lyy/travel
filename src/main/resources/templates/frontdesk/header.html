@@ -210,7 +210,7 @@
     <div class="header_wrap">
         <div class="topbar">
             <div class="logo">
-                <img src="https://www.itbaizhan.com/wiki/images/logo.png" alt="">
+                <img src="http://forntdesk/images/logo.png" alt="">
 
 
                 <div>
@@ -232,7 +232,7 @@
             </div>
             <div class="hottel">
                 <div class="hot_pic">
-                    <img src="https://www.itbaizhan.com/wiki/images/hot_tel.jpg" alt="">
+                    <img src="http://localhost/frontdesk/images/hot_tel.jpg" alt="">
                 </div>
                 <div class="hot_tel">
                     <p class="hot_time">客服热线(9:00-6:00)</p>
@@ -244,15 +244,19 @@
     <!-- 首页导航 -->
     <div class="navitem">
         <ul class="nav">
-            <li class="nav-active"><a href="/frontdesk/index">首页</a></li>
-            <li><a href="route_list.html">门票</a></li>
-            <li><a href="route_list.html">酒店</a></li>
-            <li><a href="route_list.html">香港车票</a></li>
-            <li><a href="route_list.html">出境游</a></li>
-            <li><a href="route_list.html">国内游</a></li>
-            <li><a href="route_list.html">港澳游</a></li>
-            <li><a href="route_list.html">抱团定制</a></li>
-            <li><a href="route_list.html">全球自由行</a></li>
+
         </ul>
     </div>
+    <script>
+        $(function(){
+            $.get("/frontdesk/category/all", function(categories) {
+                // console.log(categories);
+                var str = "<li class=\"nav-active\"><a href=\"index.html\">首页</a></li>";
+                for(var i = 0; i < categories.length; i++) {
+                    str += "<li><a href=\"/frontdesk/product/routeList?cid="+categories[i].cid+"\">"+categories[i].cname+"</a></li>"
+                }
+                $(".nav").html(str);
+            })
+        })
+    </script>
 </header>

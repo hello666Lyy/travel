@@ -1,22 +1,20 @@
 package com.itbaizhan;
 
+import com.itbaizhan.util.MailUtils;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @SpringBootTest
 class TravelApplicationTests {
 
+    @Autowired
+    private MailUtils mailUtils;
+
     @Test
     void contextLoads() {
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        String rawPassword = "123456";
-        String encodedPassword = encoder.encode(rawPassword); // 生成加密后的密码
-        System.out.println("加密后：" + encodedPassword);
-
-        // 验证（返回 true）
-        boolean matches = encoder.matches(rawPassword, encodedPassword);
-        System.out.println("验证结果：" + matches);
+        mailUtils.sendMail("3113942885@qq.com","这是一封测试邮件","测试");
     }
 
 }

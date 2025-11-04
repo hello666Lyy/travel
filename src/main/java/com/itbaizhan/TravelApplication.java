@@ -6,10 +6,13 @@ import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerIntercept
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 @MapperScan("com.itbaizhan.mapper")
+//SpringBoot启动时扫描注册注解标注的Web组件
+@ServletComponentScan
 public class TravelApplication {
 
     public static void main(String[] args) {

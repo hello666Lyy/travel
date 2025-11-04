@@ -16,5 +16,9 @@ public class WebMvcConfig implements WebMvcConfigurer {
         String uploadPath = System.getProperty("user.dir") + "/src/main/resources/static/upload/";
         registry.addResourceHandler("/upload/**")
                 .addResourceLocations("file:" + uploadPath);
+
+        // 核心：/** 匹配所有请求路径，映射到 static 目录下的所有文件（包括子目录）
+        registry.addResourceHandler("/**")
+                .addResourceLocations("classpath:/static/");
     }
 }

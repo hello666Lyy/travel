@@ -22,3 +22,15 @@ mybatis-plus:
     map-underscore-to-camel-case: false
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl #开启sql日志
 
+logging:
+  pattern:
+    console: '%d{HH:mm:ss.sss} %clr(%-5level) ---  [%-15thread] %cyan(%-50logger{50}):%msg%n'
+
+mail:
+  user: 3113942885@qq.com
+  password: frgzgkxjpzrvdhfh
+  host: smtp.qq.com # SMTP主机
+  port: 587 # 端口（QQ邮箱推荐587）
+
+project:
+  path: http://localhost

@@ -1,0 +1,85 @@
+package com.itbaizhan.service;
+
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.itbaizhan.bean.Result;
+import com.itbaizhan.mapper.MemberMapper;
+import com.itbaizhan.pojo.Member;
+import com.itbaizhan.util.MailUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.UUID;
+
+@Service
+public class MemberService {
+    @Autowired
+    private MemberMapper memberMapper;
+    @Autowired
+    private BCryptPasswordEncoder encoder;
+    @Autowired
+    private MailUtils mailUtils;
+    @Value("${project.path}")
+    private String projectPath;
+
+    // 注册
+    public Result register(Member member){
+        QueryWrapper<Member> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("username",member.getUsername());
+        List<Member> members = memberMapper.selectList(queryWrapper);
+        if(members.size()>0){
+            return new Result(false, "用户名已存在");
+        }
+
+        QueryWrapper<Member> queryWrapper1 = new QueryWrapper<>();
+        queryWrapper1.eq("phoneNum",member.getPhoneNum());
+        List<Member> members1 = memberMapper.selectList(queryWrapper1);
+        if(members1.size()>0){
+            return new Result(false, "手机号码已存在");
+        }
+
+        QueryWrapper<Member> queryWrapper2 = new QueryWrapper<>();
+        queryWrapper2.eq("email",member.getEmail());
+        List<Member> members2 = memberMapper.selectList(queryWrapper2);
+        if(members2.size()>0){
+            return new Result(false, "邮箱已存在");
+        }
+
+
+        String password = member.getPassword();
+        password = encoder.encode(password);
+        member.setPassword(password);
+
+        member.setActive(false);
+
+        String activeCode = UUID.randomUUID().toString();
+
+        String activeUrl = projectPath + "/frontdesk/member/active?activeCode=" + activeCode;
+        String text = "恭喜您注册成功! <a href = '" + activeUrl + "'>点击激活</a>完成账号认证";
+        mailUtils.sendMail(member.getEmail(),text,"旅游网激活邮件");
+
+        member.setActiveCode(activeCode);
+
+        memberMapper.insert(member);
+        return new Result(true,"注册成功");
+    }
+
+    //激活用户
+    public String active(String activeCode) {
+        QueryWrapper<Member> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("activeCode",activeCode);
+        Member member = memberMapper.selectOne(queryWrapper);
+
+        if(member==null) {
+            return "激活失败！激活码错误！";
+        } else {
+            member.setActive(true);
+            memberMapper.updateById(member);
+            return "激活成功，请<a href='"+projectPath+"/frontdesk/login'>登录</a>";
+        }
+    }
+
+
+}

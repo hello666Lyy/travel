@@ -18,6 +18,15 @@
             <result property="cname" column="cname"></result>
         </association>
     </resultMap>
+    <insert id="addFavorite">
+        insert into favorite(pid,mid)
+        values (#{pid},#{mid})
+    </insert>
+    <delete id="delFavorite">
+        delete from favorite
+        where pid=#{pid}
+        and mid = #{mid}
+    </delete>
 
     <select id="findProductPage" resultMap="productMapper" >
         select * from product
@@ -31,5 +40,11 @@
                           left join category
                                     on product.cid = category.cid
         where pid = #{pid}
+    </select>
+
+    <select id="findFavoriteByPidAndMid" resultType="java.lang.Integer">
+        select count(*) from favorite
+        where pid = #{pid}
+        and mid = #{mid}
     </select>
 </mapper>

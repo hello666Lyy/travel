@@ -3,9 +3,16 @@ package com.itbaizhan.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.itbaizhan.pojo.Product;
+import org.apache.ibatis.annotations.Param;
 
 public interface ProductMapper extends BaseMapper<Product> {
     Page<Product> findProductPage(Page<Product> page);
 
     Product findOne(Integer pid);
+
+    Integer findFavoriteByPidAndMid(@Param("pid") Integer pid, @Param("mid") Integer mid);
+
+    void addFavorite(@Param("pid") Integer pid, @Param("mid") Integer mid);
+
+    void delFavorite(@Param("pid") Integer pid, @Param("mid") Integer mid);
 }

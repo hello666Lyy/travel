@@ -15,6 +15,7 @@ public class ProductService {
 
     @Autowired
     private ProductMapper productMapper;
+    
 
     public Page<Product> findPage(int page, int size) {
         return productMapper.findProductPage(new Page(page, size));
@@ -53,4 +54,9 @@ public class ProductService {
         return  productMapper.selectPage(new Page<>(page, size), queryWrapper);
     }
 
+    public boolean findFavorite(Integer pid, Integer mid) {
+        Integer result = productMapper.findFavoriteByPidAndMid(pid, mid);
+        if(result == 0) return false;
+        return true;
+    }
 }

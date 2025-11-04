@@ -1,8 +1,10 @@
 package com.itbaizhan.controller.frontdesk;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.itbaizhan.pojo.Member;
 import com.itbaizhan.pojo.Product;
 import com.itbaizhan.service.ProductService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,9 +31,19 @@ public class FrontDeskProductController {
     }
 
     @RequestMapping("/routeDetail")
-    public ModelAndView findOne(Integer pid) {
+    public ModelAndView findOne(Integer pid, HttpSession session) {
         ModelAndView modelAndView = new ModelAndView();
         Product product = productService.findOne(pid);
+
+        Object member = session.getAttribute("member");
+        if(member == null) {
+            modelAndView.addObject("favorite", false);
+        } else {
+            Member member1 = (Member) member;
+            boolean favorite = productService.findFavorite(pid, member1.getMid());
+            modelAndView.addObject("favorite", favorite);
+        }
+
         modelAndView.addObject("product", product);
         modelAndView.setViewName("frontdesk/route_detail");
         return modelAndView;
